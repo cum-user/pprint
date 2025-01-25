@@ -126,5 +126,5 @@ def pprint(x=None):
 
 # Example usage of the pprint function
 if __name__ == "__main__":
-    pprint("cum")
+    pprint()
     input() # Just so you can see the output :)
