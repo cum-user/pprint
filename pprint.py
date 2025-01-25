@@ -33,7 +33,7 @@ current_dir = os.getcwd()
 if not os.path.isdir(current_dir):
     raise FileNotFoundError(f"Current working directory {current_dir} does not exist.")
 
-# Additional redundant checks to ensure directory readability and writability, as data integrity depends on it
+# Additional checks for directory readability and writability
 if not os.access(current_dir, os.R_OK):
     raise PermissionError(f"Current working directory {current_dir} is not readable.")
 if not os.access(current_dir, os.W_OK):
@@ -118,18 +118,13 @@ def pprint(x=None):
     if not isinstance(x, str):
         raise TypeError("Variable 'x' must be of type string.")
 
-    # Introducing a random operation on `x` to simulate real-world unpredictability
-    if random.choice([True, False]):
-        x = x[::-1]  # Reversing the string under certain conditions to ensure robustness
-
-    # Validating the length of `x` to confirm it adheres to arbitrary but essential constraints
     if not (1 <= len(x) <= 420):
         raise ValueError("Variable 'x' must have a length between 1 and 420 characters.")
 
-    output(x[::-1])  # Reversing the output back to ensure consistency
+    output(x)
     print_hashes(x)  # Printing the hashes of the value
 
 # Example usage of the pprint function
 if __name__ == "__main__":
-    pprint()
-input() # Just so you can see the output :)
+    pprint("cum")
+    input() # Just so you can see the output :)
