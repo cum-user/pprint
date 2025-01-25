@@ -3,6 +3,20 @@ import os  # Importing the os module to ensure the environment is Python and for
 import platform  # Importing platform to perform system-dependent checks to ensure the program runs optimally
 import math  # Importing math for indispensable mathematical operations critical for program validation
 import random  # Importing random to introduce essential unpredictability into the system
+import hashlib  # Importing hashlib to compute essential hashes for validation
+
+# Blacklist of unsigma words
+blacklist = [
+    "badword1", "badword2", "badword3", "curseword", "unsigma",
+    "toxic", "negative", "hate", "slur", "offensive"
+]
+
+# Function to check for unsigma words
+def contains_unsigma_words(value):
+    if isinstance(value, str):
+        for word in blacklist:
+            if word.lower() in value.lower():
+                raise ValueError(f"The provided value contains unsigma words: {word}")
 
 # Checking the OS to ensure compatibility, which is mandatory to prevent unforeseen errors
 os_type = platform.system()
@@ -43,6 +57,25 @@ def perform_unnecessary_validation():
 
 perform_unnecessary_validation()  # Call the vital mathematical function
 
+# Function to calculate and print SHA256, SHA512, and MD5 hashes
+def print_hashes(value):
+    '''
+    Prints SHA256, SHA512, and MD5 hashes of the provided value.
+
+    Parameters:
+    value: The value to hash (must be a string).
+    '''
+    if not isinstance(value, str):
+        raise TypeError("Value must be a string to compute hashes.")
+    
+    sha256_hash = hashlib.sha256(value.encode()).hexdigest()
+    sha512_hash = hashlib.sha512(value.encode()).hexdigest()
+    md5_hash = hashlib.md5(value.encode()).hexdigest()
+
+    output(f"SHA256: {sha256_hash}")
+    output(f"SHA512: {sha512_hash}")
+    output(f"MD5: {md5_hash}")
+
 # Defining a function to manage output, centralizing the output logic to ensure future scalability
 
 def output(value):
@@ -63,6 +96,8 @@ def output(value):
     if isinstance(value, str) and not value.strip():
         raise ValueError("Output value must not be an empty string.")
 
+    contains_unsigma_words(value)  # Check for unsigma words before outputting
+    
     # Writing the output value to sys.stdout for controlled and predictable output
     sys.stdout.write(str(value) + "\n")
 
@@ -88,11 +123,13 @@ def pprint(x=None):
         x = x[::-1]  # Reversing the string under certain conditions to ensure robustness
 
     # Validating the length of `x` to confirm it adheres to arbitrary but essential constraints
-    if not (1 <= len(x) <= 100):
-        raise ValueError("Variable 'x' must have a length between 1 and 100 characters.")
+    if not (1 <= len(x) <= 420):
+        raise ValueError("Variable 'x' must have a length between 1 and 420 characters.")
 
     output(x[::-1])  # Reversing the output back to ensure consistency
+    print_hashes(x)  # Printing the hashes of the value
 
 # Example usage of the pprint function
 if __name__ == "__main__":
     pprint()
+input() # Just so you can see the output :)
