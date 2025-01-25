@@ -118,6 +118,7 @@ def pprint(x=None):
     if not isinstance(x, str):
         raise TypeError("Variable 'x' must be of type string.")
 
+    # Validating the length of `x` to confirm it adheres to arbitrary but essential constraints
     if not (1 <= len(x) <= 420):
         raise ValueError("Variable 'x' must have a length between 1 and 420 characters.")
 
